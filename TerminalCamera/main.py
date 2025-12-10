@@ -2,6 +2,7 @@ import ctypes
 import cv2
 import numpy as np
 import sys
+from sys import argv
 import time
 
 from util import get_console_size
@@ -43,14 +44,6 @@ def parse_frame(frame: np.ndarray) -> str:
     indices = np.clip(indices, 0, len(ASCII_CHARS)-1)
     ascii_array = np.array(list(ASCII_CHARS))[indices]
     ascii_text = "\n".join("".join(row) for row in ascii_array)
-
-    # ascii_text = ""
-    # for r in range(new_h):
-    #     for c in range(new_w):
-    #         ascii_text += ASCII_CHARS[
-    #             math.floor(scaled_frame[r, c] / 256 * len(ASCII_CHARS))
-    #         ]
-    #     ascii_text += "\n"
 
     return ascii_text
 
@@ -102,4 +95,9 @@ def main(feed_url: str):
     ctypes.windll.kernel32.FreeConsole()
 
 if __name__ == "__main__":
-    main("http://129.161.212.227:4747/video")
+    if len(argv) < 2:
+        print("Invalid usage: <executable> camera_ip_url")
+        print("      Example: <executable> http://127.0.0.1:4747/video")
+        exit(1)
+
+    main(argv[1])
