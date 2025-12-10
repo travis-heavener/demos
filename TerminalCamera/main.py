@@ -63,7 +63,7 @@ def main(feed_url: str):
 
     # 3. Read pixels
     last_resize_check = 0
-    RESIZE_CHECK_INTERVAL = 0.25 # How often to poll for dimension changes
+    RESIZE_CHECK_INTERVAL = 0.1 # How often to poll for dimension changes
     while(True):
         try:
             # Get frame
